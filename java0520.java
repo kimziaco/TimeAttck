@@ -35,7 +35,7 @@ class PlayerATeam extends Player
         int out = 0;
 
         // TODO
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             if (PlayerATeam.this.getInitNumber().charAt(i) == number.charAt(i)) {
                 strike += 1;
             } else {
@@ -67,7 +67,7 @@ class PlayerBTeam extends Player
         int out = 0;
 
         // TODO
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 4; i++) {
             if (PlayerBTeam.this.getInitNumber().charAt(i) == number.charAt(i)) {
                 ball += 1;
             } else {
