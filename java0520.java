@@ -2,46 +2,28 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-abstract class Player {
+abstract class Player{
     private String name;
     private String initNumber;
     private List<String> fightList = new LinkedList<String>();
     private Boolean isEnd;
-
     public Player(String name, String initNumber) {
         this.name = name;
         this.initNumber = initNumber;
         this.isEnd = false;
     }
-
     public abstract void play(String number) throws Exception;
-
-    public void addFightList(String number) {
-        fightList.add(number);
-    }
-
-    public Boolean getIsEnd() {
-        return isEnd;
-    }
-
-    public void setIsEnd(Boolean isEnd) {
-        this.isEnd = isEnd;
-    }
-
-    public String getInitNumber() {
-        return initNumber;
-    }
-
-    public String getName() {
-        return name;
-    }
-
+    public void addFightList(String number) { fightList.add(number); }
+    public Boolean getIsEnd() { return isEnd; }
+    public void setIsEnd(Boolean isEnd) { this.isEnd = isEnd; }
+    public String getInitNumber() { return initNumber; }
+    public String getName() { return name; }
     public void printFightList() {
         // TODO
     }
 }
-
-class PlayerATeam extends Player {
+class PlayerATeam extends Player
+{
     public PlayerATeam(String name, String number) {
         super(name, number);
     }
@@ -53,32 +35,31 @@ class PlayerATeam extends Player {
         int out = 0;
 
         // TODO
-        
-//        for(int i=0; i<4; i++){
-//            if(초기화된 값.charAt(i) == 입력한 값.charAt(i)){
-//                strike +=1;
-//            }else{
-//                if(입력한 값.indexOf(초기화된값.chatAt(i))!=-1){
-//                    ball+=1;
-//                }else{
-//                    out+=1;
-//                }
-//            }
+        for (int i = 0; i < 4; i++) {
+            if (getInitNumber().charAt(i) == number.charAt(i)) {
+                strike += 1;
+            } else {
+                if (number.indexOf(getInitNumber().charAt(i)) != -1) {
+                    ball += 1;
+                } else {
+                    out += 1;
+                }
+            }
 
-        if (strike == 4) {
+        if(strike == 4) {
             System.out.println("Congratulation!");
             super.setIsEnd(true);
         } else {
-            System.out.println("Strike : " + strike + ", Ball :" + ball + ", Out: " + out);
+            System.out.println("Strike : "+strike+", Ball :"+ball+", Out: "+out);
         }
     }
 }
 
-class PlayerBTeam extends Player {
+class PlayerBTeam extends Player
+{
     public PlayerBTeam(String name, String number) {
         super(name, number);
     }
-
     @Override
     public void play(String number) throws Exception {
         int strike = 0;
@@ -86,55 +67,55 @@ class PlayerBTeam extends Player {
         int out = 0;
 
         // TODO
-
-//        for (int i = 0; i < 4; i++) {
-//            if (초기화된 값.charAt(i) == 입력한 값.charAt(i)){
-//                ball += 1;
-//            }else{
-//                if(입력한 값.indexOf(초기화된값.chatAt(i)) != -1){
-//                    strike += 1;
-//                }else{
-//                    out += 1;
-//                }
-//            }
-
-
-            if (ball == 4) {
-                System.out.println("Congratulation!");
-                super.setIsEnd(true);
+        for (int i = 0; i < 4; i++) {
+            if (getInitNumber().charAt(i) == number.charAt(i)) {
+                ball += 1;
             } else {
-                System.out.println("Strike : " + strike + ", Ball :" + ball + ", Out: " + out);
-            }
-        }
-    }
-
-    public class Main {
-
-        public static void main(String[] args) {
-            Scanner scanner = new Scanner(System.in);
-            Player playerArray[] = {new PlayerATeam("A Team", "1234"), new PlayerBTeam("B Team", "5678")};
-            int checkPlayer = 0;
-
-            while (true) {
-                checkPlayer = 0;
-                for (Player player : playerArray) {
-                    if (player.getIsEnd() == false) {
-                        System.out.print("Please enter a 4 digit number (" + player.getName() + ") defence : ");
-                        String number = scanner.nextLine();
-                        try {
-                            player.play(number);
-                        } catch (Exception e) {
-                            System.out.println(e.getMessage());
-                        }
-                    } else {
-                        checkPlayer++;
-                    }
+                if (number.indexOf(getInitNumber().charAt(i)) != -1) {
+                    strike += 1;
+                } else {
+                    out += 1;
                 }
-                if (checkPlayer == playerArray.length) break;
             }
 
-            for (Player player : playerArray) {
-                player.printFightList();
-            }
+
+            if(ball == 4) {
+            System.out.println("Congratulation!");
+            super.setIsEnd(true);
+        } else {
+            System.out.println("Strike : "+strike+", Ball :"+ball+", Out: "+out);
         }
     }
+}
+
+public class Main {
+
+    public static void main(String[] args)
+    {
+        Scanner scanner = new Scanner(System.in);
+        Player playerArray[] = {new PlayerATeam("A Team","1234"), new PlayerBTeam("B Team","5678")};
+        int checkPlayer = 0;
+
+        while(true) {
+            checkPlayer = 0;
+            for(Player player : playerArray) {
+                if (player.getIsEnd() == false) {
+                    System.out.print("Please enter a 4 digit number (" + player.getName() + ") defence : ");
+                    String number = scanner.nextLine();
+                    try {
+                        player.play(number);
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                    }
+                } else {
+                    checkPlayer++;
+                }
+            }
+            if(checkPlayer == playerArray.length) break;
+        }
+
+        for(Player player : playerArray) {
+            player.printFightList();
+        }
+    }
+}
