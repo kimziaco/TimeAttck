@@ -9,41 +9,42 @@ class Calculator {
     }
 
     // Sum of A n B
-    public int[] intersection(int[] A, int[] B) {
+    public ArrayList<Integer> intersection(int[] A, int[] B) {
 
 
-        int[] result = new int[A.length + B.length];
+        ArrayList<Integer> integerA = new ArrayList<>(A.length);
+        ArrayList<Integer> integerB = new ArrayList<>(B.length);
+        int i;
 
-        int i, j, cnt = 0;
-        for (i = 0; i < A.length; i++) {
-            for (j = 0; j < B.length; j++) {
-                if (A[i] == B[j]) {
-                    result[i] = A[i];
-                }
-            }
 
-            
+        for (i = 0; i < A.length; i++)
+            integerA.add(A[i]);
 
-        }
-        return result;
+        for (i = 0; i < B.length; i++)
+            integerB.add(B[i]);
+        integerA.retainAll(integerB);
+
+        return integerA;
 
 
     }
 
     // Sum of A - B
-    public int[] differenceOfSet(int[] A, int[] B) {
+    public ArrayList<Integer> differenceOfSet(int[] A, int[] B) {
 
-        int[] result2 = new int[A.length + B.length];
+        ArrayList<Integer> integerA = new ArrayList<>(A.length);
+        ArrayList<Integer> integerB = new ArrayList<>(B.length);
+        int i;
 
-        int i, j;
-        for (i = 0; i < A.length; i++) {
-            for (j = 0; j < B.length; j++) {
-                if (A[i] != B[j]) {
-                    result2[i] = A[i];
-                }
-            }
-        }
-        return result2;
+
+        for (i = 0; i < A.length; i++)
+            integerA.add(A[i]);
+
+        for (i = 0; i < B.length; i++)
+            integerB.add(B[i]);
+        integerA.removeAll(integerB);
+
+        return integerA;
     }
 }
 
